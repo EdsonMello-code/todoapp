@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:todo_app/app/core/utils/either.dart';
-import 'package:todo_app/app/modules/todos/controllers/todo_controller.dart';
-import 'package:todo_app/app/modules/todos/models/todo_model.dart';
-import 'package:todo_app/app/modules/todos/pages/todo_page.dart';
-import 'package:todo_app/app/modules/todos/services/todo_service.dart';
+import 'package:todo_app/app/modules/todos/data/services/todo_service.dart';
+import 'package:todo_app/app/modules/todos/interactor/controllers/todo_controller.dart';
+import 'package:todo_app/app/modules/todos/interactor/models/todo_model.dart';
+import 'package:todo_app/app/modules/todos/interactor/state/todo_state.dart';
+import 'package:todo_app/app/modules/todos/ui/pages/todo_page.dart';
 
-import '../../../core/utils/make_testable.dart';
+import '../../../../core/utils/make_testable.dart';
 
 void main() {
   late TodoController todoController;
@@ -28,7 +28,7 @@ void main() {
         (tester) async {
           when(() => todoService.getTodos()).thenAnswer((_) {
             return Future.value(
-              Right(
+              TodoStateSuccess(
                 <TodoModel>[
                   TodoModel(
                     title: 'Delectus aut autem',

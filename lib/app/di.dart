@@ -3,9 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:todo_app/app/core/services/http_service/http_service.dart';
 import 'package:todo_app/app/core/services/http_service/http_service_impl.dart';
 import 'package:todo_app/app/core/utils/unit.dart';
-import 'package:todo_app/app/modules/todos/controllers/todo_controller.dart';
-import 'package:todo_app/app/modules/todos/services/todo_service.dart';
-import 'package:todo_app/app/modules/todos/services/todo_service_impl.dart';
+import 'package:todo_app/app/modules/todos/data/services/todo_service.dart';
+import 'package:todo_app/app/modules/todos/data/services/todo_service_impl.dart';
+import 'package:todo_app/app/modules/todos/interactor/controllers/todo_controller.dart';
 
 var getIt = GetIt.instance;
 

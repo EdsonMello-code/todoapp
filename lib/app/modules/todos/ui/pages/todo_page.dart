@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todo_app/app/core/widgets/text_widget.dart';
-import 'package:todo_app/app/modules/todos/controllers/todo_controller.dart';
-import 'package:todo_app/app/modules/todos/controllers/todo_state.dart';
-import 'package:todo_app/app/modules/todos/pages/widgets/todo_tile_widget.dart';
+import 'package:todo_app/app/modules/todos/interactor/controllers/todo_controller.dart';
+import 'package:todo_app/app/modules/todos/interactor/state/todo_state.dart';
+import 'package:todo_app/app/modules/todos/ui/widgets/todo_tile_widget.dart';
 
 class TodoPage extends StatefulWidget {
   final TodoController todoController;
