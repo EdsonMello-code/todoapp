@@ -1,5 +1,5 @@
-import 'package:todo_app/app/modules/todos/exceptions/todo_exception.dart';
-import 'package:todo_app/app/modules/todos/models/todo_model.dart';
+import 'package:todo_app/app/core/exceptions/app_exceptions.dart';
+import 'package:todo_app/app/modules/todos/interactor/models/todo_model.dart';
 
 sealed class TodoState {}
 
@@ -12,7 +12,7 @@ class TodoStateSuccess implements TodoState {
 }
 
 class TodoStateFailure implements TodoState {
-  final TodoException todoException;
+  final AppException todoException;
 
   const TodoStateFailure(this.todoException);
 }

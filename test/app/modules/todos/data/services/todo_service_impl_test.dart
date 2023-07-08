@@ -7,8 +7,9 @@ import 'package:todo_app/app/core/services/http_service/http_exception.dart';
 import 'package:todo_app/app/core/services/http_service/http_response.dart';
 import 'package:todo_app/app/core/services/http_service/http_service_impl.dart';
 import 'package:todo_app/app/core/utils/unit.dart';
-import 'package:todo_app/app/modules/todos/services/todo_service.dart';
-import 'package:todo_app/app/modules/todos/services/todo_service_impl.dart';
+import 'package:todo_app/app/modules/todos/data/services/todo_service.dart';
+import 'package:todo_app/app/modules/todos/data/services/todo_service_impl.dart';
+import 'package:todo_app/app/modules/todos/interactor/state/todo_state.dart';
 
 void main() {
   late HttpServiceMock httpService;
@@ -41,18 +42,16 @@ void main() {
             ),
           );
 
-          final todosResponse = await todoService.getTodos();
+          final todoState = await todoService.getTodos();
 
-          todosResponse.fold(
-            right: (todos) {
-              expect(todos.isNotEmpty, true);
-              final isNotEmptyTitle = todos.any(
-                (element) => element.title.isNotEmpty,
-              );
-              expect(isNotEmptyTitle, true);
-              return unit;
-            },
-          );
+          if (todoState is TodoStateSuccess) {
+            final todos = todoState.todos;
+            expect(todos.isNotEmpty, true);
+            final isNotEmptyTitle = todos.any(
+              (element) => element.title.isNotEmpty,
+            );
+            expect(isNotEmptyTitle, true);
+          }
         },
       );
 
@@ -70,15 +69,14 @@ void main() {
             ),
           );
 
-          final todosResponse = await todoService.getTodos();
+          final todoState = await todoService.getTodos();
 
-          todosResponse.fold(
-            left: (error) {
-              expect(error, isA<AppException>());
-              expect(error.message, 'Error of connection');
-              return unit;
-            },
-          );
+          if (todoState is TodoStateFailure) {
+            final exception = todoState.todoException;
+            expect(exception, isA<AppException>());
+            expect(exception.message, 'Error of connection');
+            return unit;
+          }
         },
       );
     });
