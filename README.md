@@ -11,6 +11,7 @@ Este aplicativo foi criado com o intuito de facilitar a realização de testes d
 ## :computer: Tecnologias, APIs, Packages utilizados:
       
   * Flutter / Dart
+  * MiniCore architecture
   * dio
   * google_fonts
   * geolocator
