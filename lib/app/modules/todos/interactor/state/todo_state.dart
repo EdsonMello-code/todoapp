@@ -1,18 +1,56 @@
 import 'package:todo_app/app/core/exceptions/app_exceptions.dart';
 import 'package:todo_app/app/modules/todos/interactor/models/todo_model.dart';
 
-sealed class TodoState {}
-
-class TodoStateLoading implements TodoState {}
-
-class TodoStateSuccess implements TodoState {
+sealed class TodoState {
   final List<TodoModel> todos;
+  final AppException? todoException;
+  final bool isLoading;
 
-  const TodoStateSuccess(this.todos);
+  const TodoState({
+    required this.todos,
+    this.todoException,
+    required this.isLoading,
+  });
+
+  factory TodoState.initial() => const TodoStateLoading(
+        todos: [],
+      );
+
+  TodoState setTodos(List<TodoModel> todos) {
+    return TodoStateSuccess(
+      todos: todos,
+    );
+  }
+
+  TodoState setLoading() {
+    return TodoStateLoading(
+      todos: todos,
+    );
+  }
+
+  TodoState setError(AppException exception) {
+    return TodoStateFailure(
+      todos: todos,
+      todoException: exception,
+    );
+  }
 }
 
-class TodoStateFailure implements TodoState {
-  final AppException todoException;
+class TodoStateLoading extends TodoState {
+  const TodoStateLoading({
+    required super.todos,
+  }) : super(isLoading: true);
+}
 
-  const TodoStateFailure(this.todoException);
+class TodoStateSuccess extends TodoState {
+  const TodoStateSuccess({
+    required super.todos,
+  }) : super(isLoading: false);
+}
+
+class TodoStateFailure extends TodoState {
+  TodoStateFailure({
+    required super.todos,
+    required super.todoException,
+  }) : super(isLoading: false);
 }

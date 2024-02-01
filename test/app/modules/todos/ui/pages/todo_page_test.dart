@@ -11,6 +11,7 @@ import '../../../../core/utils/make_testable.dart';
 
 void main() {
   late TodoController todoController;
+  late TodoState initialState;
 
   late TodoService todoService;
   setUp(() {
@@ -18,6 +19,7 @@ void main() {
     todoController = TodoController(
       todoService: todoService,
     );
+    initialState = TodoState.initial();
   });
 
   group(
@@ -26,10 +28,10 @@ void main() {
       testWidgets(
         'Should have state successfully',
         (tester) async {
-          when(() => todoService.getTodos()).thenAnswer((_) {
+          when(() => todoService.getTodos(initialState)).thenAnswer((_) {
             return Future.value(
               TodoStateSuccess(
-                <TodoModel>[
+                todos: <TodoModel>[
                   TodoModel(
                     title: 'Delectus aut autem',
                     isSelected: false,

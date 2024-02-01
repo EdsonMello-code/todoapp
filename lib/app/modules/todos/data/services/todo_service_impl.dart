@@ -15,7 +15,7 @@ class TodoServiceImpl implements TodoService {
   }) : _httpClient = httpClient;
 
   @override
-  Future<TodoState> getTodos() async {
+  Future<TodoState> getTodos(TodoState state) async {
     try {
       final response = await _httpClient.get('/todos');
 
@@ -25,9 +25,9 @@ class TodoServiceImpl implements TodoService {
           )
           .toList();
 
-      return TodoStateSuccess(todos);
+      return state.setTodos(todos);
     } on AppException catch (error) {
-      return TodoStateFailure(error);
+      return state.setError(error);
     }
   }
 }

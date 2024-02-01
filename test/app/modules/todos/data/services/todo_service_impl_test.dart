@@ -23,6 +23,12 @@ void main() {
   });
 
   group('TodoService ->', () {
+    late TodoState initialState;
+
+    setUp(() {
+      initialState = TodoState.initial();
+    });
+
     group('getTodos ->', () {
       test(
         'Should return todos(Either<TodoException, List<TodoModel>>) then this method is called!',
@@ -42,7 +48,7 @@ void main() {
             ),
           );
 
-          final todoState = await todoService.getTodos();
+          final todoState = await todoService.getTodos(initialState);
 
           if (todoState is TodoStateSuccess) {
             final todos = todoState.todos;
@@ -69,12 +75,12 @@ void main() {
             ),
           );
 
-          final todoState = await todoService.getTodos();
+          final todoState = await todoService.getTodos(initialState);
 
           if (todoState is TodoStateFailure) {
             final exception = todoState.todoException;
             expect(exception, isA<AppException>());
-            expect(exception.message, 'Error of connection');
+            expect(exception?.message, 'Error of connection');
             return unit;
           }
         },
