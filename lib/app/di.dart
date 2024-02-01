@@ -9,7 +9,7 @@ import 'package:todo_app/app/modules/todos/interactor/controllers/todo_controlle
 
 var getIt = GetIt.instance;
 
-Unit setup() {
+Unit gitSetupInitializedDependents() {
   getIt = GetIt.asNewInstance();
   getIt.registerSingleton<Dio>(
     Dio(),

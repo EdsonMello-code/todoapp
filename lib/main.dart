@@ -3,6 +3,6 @@ import 'package:todo_app/app/app_widget.dart';
 import 'package:todo_app/app/di.dart';
 
 void main() async {
-  setup();
+  gitSetupInitializedDependents();
   runApp(const AppWidget());
 }
